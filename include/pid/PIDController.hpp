@@ -49,19 +49,19 @@ public:
   void reset();
 
 public:
-  float const kP;       //!< Proportional gain
-  float const kI;       //!< Integral gain
-  float const kD;       //!< Derivative gain
-  float const maxRate;  //!< Maximum speed of change of the output value
-  float const maxOutput;//!< Maximum output value
+  float const kP;        //!< Proportional gain
+  float const kI;        //!< Integral gain
+  float const kD;        //!< Derivative gain
+  float const maxRate;   //!< Maximum speed of change of the output value
+  float const maxOutput; //!< Maximum output value
 
 private:
-  Time m_timestampPrev;//!< Last execution timestamp
+  Time m_timestampPrev; //!< Last execution timestamp
 
 private:
-  float m_integral;  //!< last integral component value
-  float m_errorPrev; //!< last tracking error value
-  float m_outputPrev;//!< last pid output value
+  float m_integral;   //!< last integral component value
+  float m_errorPrev;  //!< last tracking error value
+  float m_outputPrev; //!< last pid output value
 };
 
-}// namespace pid
+} // namespace pid
