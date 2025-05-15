@@ -18,15 +18,8 @@
 
 namespace pid {
 
-PIDController::PIDController(float _kP, float _kI, float _kD, float _maxOutput, float _maxRate) : kP(_kP),
-                                                                                                  kI(_kI),
-                                                                                                  kD(_kD),
-                                                                                                  maxRate(_maxRate),
-                                                                                                  maxOutput(_maxOutput),
-
-                                                                                                  m_integral(0.0f),
-                                                                                                  m_errorPrev(0.0f),
-                                                                                                  m_outputPrev(0.0f) {
+PIDController::PIDController(float _kP, float _kI, float _kD, float _maxOutput, float _maxRate) noexcept
+    : kP(_kP), kI(_kI), kD(_kD), maxRate(_maxRate), maxOutput(_maxOutput), m_integral(0.0f), m_errorPrev(0.0f), m_outputPrev(0.0f) {
   m_timestampPrev = esp_timer_get_time();
 }
 
@@ -34,11 +27,11 @@ float PIDController::compute(float error) {
   auto const currentTime = esp_timer_get_time();
   auto const dT = static_cast<float>(currentTime);
   auto const proportional = kP * error;                    //!< Пропорциональная составляющая
-  auto const derivative = kD * (error - m_errorPrev) / dT;//!< Дифференциальная составляющая
+  auto const derivative = kD * (error - m_errorPrev) / dT; //!< Дифференциальная составляющая
 
-  m_integral += kI * error * dT;//!< Интегральная составляющая
+  m_integral += kI * error * dT; //!< Интегральная составляющая
 
-  auto output = proportional + m_integral + derivative;//!< Вычисление выходного сигнала на основе ошибки
+  auto output = proportional + m_integral + derivative; //!< Вычисление выходного сигнала на основе ошибки
 
   auto const outputRate = (output - m_outputPrev) / dT;
   if (std::abs(outputRate) > maxRate) {
@@ -73,4 +66,4 @@ void PIDController::reset() {
   m_errorPrev = 0.0f;
 }
 
-}// namespace pid
+} // namespace pid

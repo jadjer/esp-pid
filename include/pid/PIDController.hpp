@@ -39,7 +39,7 @@ public:
    * @param ramp - Maximum speed of change of the output value
    * @param limit - Maximum output value
    */
-  PIDController(float kP, float kI, float kD, float maxOutput, float maxRate);
+  PIDController(float kP, float kI, float kD, float maxOutput, float maxRate) noexcept;
 
 public:
   float compute(float error);
